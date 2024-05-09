@@ -1,4 +1,4 @@
-const descriptors = [
+module.exports.descriptors = [
     'lush',
     'arid',
     'rocky',
@@ -21,7 +21,7 @@ const descriptors = [
     'sun-drenched'
   ];
   
-  const places = [
+  module.exports.places = [
     'jungle',
     'desert',
     'canyon',
@@ -44,4 +44,3 @@ const descriptors = [
     'caldera' // volcanic crater
   ];
   
-  module.exports = { descriptors, places };
