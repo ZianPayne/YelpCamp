@@ -1,154 +1,155 @@
 module.exports = [
   {
     city: "Auckland",
-    growth_from_2013_to_2023: "Unknown", // Data might not be readily available
+    region: "Aucland",
+    growth_from_2013_to_2023: "Unknown",
     latitude: -36.84846,
     longitude: 174.76333,
-    population: "1,470,300", // Estimated population for 2023
-    region: "Auckland",
+    population: 1470300
   },
   {
     city: "Christchurch",
-    growth_from_2013_to_2023: "12.5%", // Placeholder, actual data needed
+    region: "Canterbury",
+    growth_from_2013_to_2023: "12.5%",
     latitude: -43.53218,
     longitude: 172.63623,
-    population: "381,400", // Estimated population for 2023
-    region: "Canterbury",
+    population: 381400
   },
   {
     city: "Wellington",
-    growth_from_2013_to_2023: "8.7%", // Placeholder, actual data needed
+    region: "Wellington",
+    growth_from_2013_to_2023: "8.7%",
     latitude: -41.28664,
     longitude: 174.7786,
-    population: 512,300, // Estimated population for 2023
-    region: "Wellington",
+    population: 512300
   },
   {
     city: "Dunedin",
-    growth_from_2013_to_2023: "1.3%", // Placeholder, actual data needed
-    latitude: -45.87897,
-    longitude: 170.50861,
-    population: 122,500, // Estimated population for 2023
     region: "Otago",
+    growth_from_2013_to_2023: "1.3%",
+    latitude: -45.87897,
+    longitude: 171.50861,
+    population: 122500
   },
   {
     city: "Hamilton",
-    growth_from_2013_to_2023: "15.2%", // Placeholder, actual data needed
+    region: "Waikato",
+    growth_from_2013_to_2023: "15.2%",
     latitude: -37.79003,
     longitude: 175.27928,
-    population: 160,400, // Estimated population for 2023
-    region: "Waikato",
+    population: 160400
   },
   {
     city: "Tauranga",
-    growth_from_2013_to_2023: "22.1%", // Placeholder, actual data needed
+    region: "Bay of Plenty",
+    growth_from_2013_to_2023: "22.1%",
     latitude: -37.7167,
     longitude: 176.1655,
-    population: 151,500, // Estimated population for 2023
-    region: "Bay of Plenty",
+    population: 151500
   },
   {
     city: "Napier",
-    growth_from_2013_to_2023: "6.4%", // Placeholder, actual data needed
+    region: "Hawke's Bay",
+    growth_from_2013_to_2023: "6.4%",
     latitude: -39.05611,
     longitude: 176.87056,
-    population: 66,800, // Estimated population for 2023
-    region: "Hawke's Bay",
+    population: 66800
   },
   {
     city: "Nelson",
-    growth_from_2013_to_2023: "4.8%", // Placeholder, actual data needed
+    region: "Nelson Tasman",
+    growth_from_2013_to_2023: "4.8%",
     latitude: -41.17499,
     longitude: 173.27778,
-    population: 48,300, // Estimated population for 2023
-    region: "Nelson Tasman",
+    population: 48300
   },
   {
     city: "Invercargill",
-    growth_from_2013_to_2023: "-1.7%", // Placeholder, actual data needed
+    region: "Southland",
+    growth_from_2013_to_2023: "-1.7%",
     latitude: -46.40639,
     longitude: 168.35085,
-    population: 57,600, // Estimated population for 2023
-    region: "Southland",
+    population: 57600
   },
   {
     city: "Palmerston North",
-    growth_from_2013_to_2023: "10.1%", // Placeholder, actual data needed
-    latitude: -41.175,
-    longitude: 175.61667,
-    population: 89,300
+    region: "Manawatu-Wanganui",
+    growth_from_2013_to_2023: "10.1%",
+    latitude: -40.35231,
+    longitude: 175.60821,
+    population: 89300
   },
   {
     city: "Abel Tasman National Park",
-    growth_from_2013_to_2023: "N/A", // Not applicable for parks
+    region: "Nelson Tasman",
+    growth_from_2013_to_2023: "N/A",
     latitude: -40.90054,
-    longitude: 172.91028,
-    type: "National Park", // Added type for camping location
+    longitude: 172.91028
   },
   {
     city: "Tongariro National Park",
+    region: "Manawatu-Wanganui",
     growth_from_2013_to_2023: "N/A",
     latitude: -39.25306,
-    longitude: 175.60000,
-    type: "National Park",
+    longitude: 175.60000
   },
   {
     city: "Lake Tekapo",
+    region: "Canterbury",
     growth_from_2013_to_2023: "N/A",
     latitude: -44.31667,
-    longitude: 170.41667,
-    type: "Lake (Camping area)",
+    longitude: 170.41667
   },
   {
     city: "Milford Sound",
+    region: "Southland",
     growth_from_2013_to_2023: "N/A",
     latitude: -44.40583,
-    longitude: 167.86667,
-    type: "Fiord (Camping area)",
+    longitude: 167.86667
   },
   {
     city: "Franz Josef Glacier",
+    region: "West Coast",
     growth_from_2013_to_2023: "N/A",
     latitude: -43.55000,
-    longitude: 170.11667,
-    type: "Glacier (Camping area)",
+    longitude: 170.11667
   },
   {
     city: "Coromandel Peninsula",
+    region: "Waikato",
     growth_from_2013_to_2023: "N/A",
     latitude: -36.75000,
-    longitude: 175.41667,
-    type: "Peninsula (Camping area)",
+    longitude: 175.41667
   },
   {
     city: "Marlborough Sounds",
+    region: "Marlborough",
     growth_from_2013_to_2023: "N/A",
     latitude: -41.33333,
-    longitude: 174.00000,
-    type: "Sounds (Camping area)",
+    longitude: 174.00000
   },
   {
     city: "Ninety Mile Beach",
+    region: "Northland",
     growth_from_2013_to_2023: "N/A",
     latitude: -34.83333,
-    longitude: 173.41667,
-    type: "Beach (Camping area)",
+    longitude: 173.41667
   },
   {
     city: "Bay of Islands",
+    region: "Northland",
     growth_from_2013_to_2023: "N/A",
     latitude: -35.25000,
-    longitude: 174.00000,
-    type: "Bay (Camping area)",
+    longitude: 174.00000
   },
   {
     city: "Catlins",
+    region: "Otago",
     growth_from_2013_to_2023: "N/A",
     latitude: -46.66667,
-    longitude: 170.75000,
-    type: "Coastal area (Camping area)",
+    longitude: 170.75000
   }
-  ]
+];
 
 
 
