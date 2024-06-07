@@ -23,11 +23,9 @@ const imgUrl = 'https://api.unsplash.com/photos/random'; // replace with your ac
 const getImage = async () => {
     const response = await fetch(imgUrl, {
         headers: { Authorization: `Client-ID ${accessKey}` }
-    })
-    .then(respnose = response.json())
-    .then(data => {
-        console.log(data.urls.regular);
     });
+    const data = await response.json();
+    console.log(data.urls.regular);
     return data.urls.regular;
 }
 
@@ -42,7 +40,7 @@ const seedDB = async () => {
         const camp = new Campground({
             location: `${cities[random20].city}, ${cities[random20].region}`,
             title: `${sample(descriptors)} ${sample(places)}`,
-            image: 'https://source.unsplash.com/collection/9822900/?random', 
+            image: img, 
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit'
         });
         await camp.save();
