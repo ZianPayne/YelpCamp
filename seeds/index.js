@@ -17,8 +17,24 @@ db.once("open", () => {
 
 const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
+const accessKey = 'yeX9LH1RGuWcbrjzGZu37plYnuoRJsCJ6YQ5H8jRMt0'; 
+const imgUrl = 'https://api.unsplash.com/photos/random'; // replace with your actual Unsplash API endpoint
+
+const getImage = async () => {
+    const response = await fetch(imgUrl, {
+        headers: { Authorization: `Client-ID ${accessKey}` }
+    })
+    .then(respnose = response.json())
+    .then(data => {
+        console.log(data.urls.regular);
+    });
+    return data.urls.regular;
+}
+
+
 const seedDB = async () => {
     await Campground.deleteMany({});
+    img = await getImage();
     console.log("Deleted all campgrounds")
     for(let i = 0; i<50;i++){
         const random20 = Math.floor(Math.random() * 20);
@@ -26,7 +42,7 @@ const seedDB = async () => {
         const camp = new Campground({
             location: `${cities[random20].city}, ${cities[random20].region}`,
             title: `${sample(descriptors)} ${sample(places)}`,
-            image: 'https://source.unsplash.com/collection/E6tFOlBYe_A/?random', 
+            image: 'https://source.unsplash.com/collection/9822900/?random', 
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit'
         });
         await camp.save();
