@@ -6,4 +6,4 @@ class ExpressError extends Error {
     }
 }
 
-modulre.exports = ExpressError;
+module.exports = ExpressError;

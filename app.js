@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
+const ExpressError = require('./utils/ExpressError');
 const catchAsync = require('./utils/catchAsync.js');
 const Campground = require('./models/campground');
 const methodOverride = require('method-override');
@@ -75,9 +76,14 @@ app.delete('/campgrounds/:id', catchAsync(async(req,res) => {
     })
 );
 
+app.all('*', (req,res,next) => {
+    next(new ExpressError('Page Not Found', 404));
+});
+
 app.use((err, req, res, next) => {
-    res.send("AHHH");
-    console.log("ERRROR");
+    const {statusCode = 500, message = 'Something went wrong'} = err;
+    res.status(statusCode).send(`${message}, statusCode: ${statusCode}`);
+    console.log(`Error: ${err.message} Status Code: ${err.statusCode}`);
 });
 
 app.listen(3000, () => {
