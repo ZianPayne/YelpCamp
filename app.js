@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError');
 const catchAsync = require('./utils/catchAsync.js');
+const Joi = require('joi');
 const Campground = require('./models/campground');
 const methodOverride = require('method-override');
 
