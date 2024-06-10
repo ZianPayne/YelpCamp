@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Schema = mongoos.Schema;
+const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
     body : String,
@@ -8,4 +8,4 @@ const reviewSchema = new Schema({
 
 
 
-module.exports = mongoos.model('Review', reviewSchema);
+module.exports = mongoose.model('Review', reviewSchema);
