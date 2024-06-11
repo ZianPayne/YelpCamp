@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Campground = require('./../models/campground');
+const Review = require('./../models/review');
+const {loremIpsum }= require('lorem-ipsum'); // for generating random text
 
 const {places, descriptors} = require('./seedHelpers')
 const cities = require('./cities');
@@ -19,6 +21,21 @@ const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
 const accessKey = 'yeX9LH1RGuWcbrjzGZu37plYnuoRJsCJ6YQ5H8jRMt0'; 
 const imgUrl = 'https://api.unsplash.com/photos/random'; // replace with your actual Unsplash API endpoint
+
+const generateRandomReviews = async (camp, numReviews) => {
+    const reviews = [];
+    for(let i = 0; i < numReviews; i++){
+        const review = new Review({
+            rating: Math.floor(Math.random() * 5) + 1, // Random rating between 1 and 5
+            body: loremIpsum() 
+        });
+        await camp.reviews.push(review);
+        await review.save();
+        await camp.save();
+    }
+    return reviews;
+}
+
 
 const getImage = async () => {
     const response = await fetch(imgUrl, {
@@ -45,6 +62,7 @@ const seedDB = async () => {
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit'
         });
         await camp.save();
+        await generateRandomReviews(camp ,Math.floor(Math.random() * 5) + 1);
         console.log(camp);
     }
 }
