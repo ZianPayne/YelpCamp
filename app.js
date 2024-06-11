@@ -100,6 +100,9 @@ app.put('/campgrounds/:id', validateCampground, catchAsync(async(req,res) => {
 app.delete('/campgrounds/:id', catchAsync(async(req,res) => {
     const  {id} = req.params;
     await Campground.findByIdAndDelete(id);
+
+    
+
     res.redirect('/campgrounds');
     })
 );
