@@ -33,8 +33,6 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 
 
-app.use('/campgrounds', campgrounds);
-
 const validateReview = (req,res,next) => {
     const {error} = reviewSchema.validate(req.body);
     if (error){
@@ -46,6 +44,11 @@ const validateReview = (req,res,next) => {
         next();
     }
 };
+
+
+// Routing
+app.use('/campgrounds', campgrounds);
+
 
 app.get('/', (req,res) => {
     res.render('home');
