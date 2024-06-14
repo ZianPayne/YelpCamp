@@ -9,14 +9,12 @@ const Campground = require('./models/campground');
 const Review = require('./models/review');
 const methodOverride = require('method-override');
 const campground = require('./models/campground');
+const session = require('express-session');
 
 const campgrounds = require('./routes/campgrounds.js');
 const reviews = require('./routes/reviews.js');
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+mongoose.connect('mongodb://localhost:27017/yelp-camp');
 
 const db = mongoose.connection; 
 db.on("error", console.error.bind(console, "Connection Error:"));
@@ -34,6 +32,19 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 app.use(express.static('public'));
 
+const sessionConfig = {
+    secret: 'thisshouldbechanged',
+    resave: false,
+    saveUninitialised: true,
+    cookie: {
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: true,
+        secure
+    }
+}
+
+app.use(session(sessionConfig));
 
 // Routing
 app.use('/campgrounds', campgrounds);

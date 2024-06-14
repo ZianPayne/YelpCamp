@@ -3,6 +3,7 @@
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",
     "express": "^4.19.2",
+    "express-session": "^1.18.0",
     "joi": "^17.13.1",
     "lorem-ipsum": "^2.0.8",
     "method-override": "^3.0.0",
