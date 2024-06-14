@@ -12,18 +12,6 @@ const validateCampground = (req,res,next) => {
     }
 }
 
-const validateReview = (req,res,next) => {
-    const {error} = reviewSchema.validate(req.body);
-    if (error){
-        console.log(error);
-        const messg = error.details.map(el => el.message).join(',');
-        throw new ExpressError(messg, 400)
-    }
-    else {
-        next();
-    }
-};
-
 router.get('/', catchAsync( async(req, res) => {
     const campgrounds = await Campground.find({});
     res.render('campgrounds/index', {campgrounds});
