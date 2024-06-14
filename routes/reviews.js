@@ -3,6 +3,7 @@ const router = express.Router({mergeParams: true});
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
 const Review = require('../models/review');
+const Campground = require('../models/campground');
 const { reviewSchema} = require('../schemas.js');
 
 const validateReview = (req,res,next) => {
@@ -19,6 +20,7 @@ const validateReview = (req,res,next) => {
 
 
 router.post('/', validateReview, catchAsync(async(req,res) => {
+    console.log(req.params.id);
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
     campground.reviews.push(review);
@@ -35,3 +37,6 @@ router.delete('/:reviewId', catchAsync(async(req,res) => {
     await Review.findByIdAndDelete(reviewId);
     res.redirect(`/campgrounds/${id}`);
 }));
+
+
+module.exports = router;
