@@ -10,6 +10,7 @@ const Review = require('./models/review');
 const methodOverride = require('method-override');
 const campground = require('./models/campground');
 const session = require('express-session');
+const flash = require('connect-flash')
 
 const campgrounds = require('./routes/campgrounds.js');
 const reviews = require('./routes/reviews.js');
@@ -32,6 +33,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 app.use(express.static('public'));
 
+
 const sessionConfig = {
     secret: 'thisshouldbechanged',
     resave: false,
@@ -40,11 +42,18 @@ const sessionConfig = {
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7,
         httpOnly: true,
-        secure
     }
 }
 
 app.use(session(sessionConfig));
+app.use(flash());   
+
+app.use((req,res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+});
+
 
 // Routing
 app.use('/campgrounds', campgrounds);
