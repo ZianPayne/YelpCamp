@@ -5,6 +5,7 @@ const ExpressError = require('../utils/ExpressError');
 const Campground = require('../models/campground');
 const { campgroundSchema} = require('../schemas.js');
 const {isLoggedIn }= require('../middleware/isLoggedIn');
+const {isAuthor} = require('../middleware/isAuthor');
 
 
 const validateCampground = (req,res,next) => {
@@ -48,7 +49,7 @@ router.get('/:id', catchAsync(async(req, res, next) => {
     })
 );
 
-router.get('/:id/edit', isLoggedIn, catchAsync(async(req,res) => {
+router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(async(req,res) => {
     const campground = await Campground.findById(req.params.id);
     if (!campground){
         req.flash('error', 'Cannot find that campground!');
@@ -58,22 +59,15 @@ router.get('/:id/edit', isLoggedIn, catchAsync(async(req,res) => {
     })
 );
 
-router.put('/:id', isLoggedIn, validateCampground, catchAsync(async(req,res) => {
+router.put('/:id', isLoggedIn, isAuthor, validateCampground, catchAsync(async(req,res) => {
     const {id} = req.params;
-    const campground = await Campground.findById(id);
-    console.log(campground.author, req.user._id);
-    if (!campground.author.equals(req.user._id)){
-        req.flash('error', 'You are not the author of this camground!');
-        return res.redirect(`/campgrounds/${id}`);
-    }
-
     const camp = await Campground.findByIdAndUpdate(id, {...req.body.campground});
     req.flash('success', 'Successfully updated campground!')
     res.redirect(`/campgrounds/${campground._id}`);
     })
 );
 
-router.delete('/:id', isLoggedIn, catchAsync(async(req,res) => {
+router.delete('/:id', isLoggedIn, isAuthor, catchAsync(async(req,res) => {
     const  {id} = req.params;
     await Campground.findByIdAndDelete(id);
     req.flash('success', 'Successfully deleted campground')
