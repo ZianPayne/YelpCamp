@@ -60,8 +60,16 @@ router.get('/:id/edit', isLoggedIn, catchAsync(async(req,res) => {
 
 router.put('/:id', isLoggedIn, validateCampground, catchAsync(async(req,res) => {
     const {id} = req.params;
-    const campground = await Campground.findByIdAndUpdate(id, {...req.body.campground});
-    req.flasH('success', 'Successfully updated campground!')
+    const campground = await Campground.findByIdA(id);
+    console.log(campground.author, req.user._id);
+    console.log("hello");
+    if (!campground.author.equals(req.user._id)){
+        req.flash('error', 'You are not the author of this camground!');
+        return res.redirect(`/campgrounds/${id}`);
+    }
+
+    const camp = await Campground.findByIdAndUpdate(id, {...req.body.campground});
+    req.flash('success', 'Successfully updated campground!')
     res.redirect(`/campgrounds/${campground._id}`);
     })
 );
