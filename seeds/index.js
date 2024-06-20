@@ -49,16 +49,16 @@ const getImage = async () => {
 
 const seedDB = async () => {
     await Campground.deleteMany({});
-    img = await getImage();
     console.log("Deleted all campgrounds")
-    for(let i = 0; i<50;i++){
+    for(let i = 0; i<30;i++){
         const random20 = Math.floor(Math.random() * 20);
         const price = Math.floor(Math.random() * 20 + 10);
         const camp = new Campground({
             location: `${cities[random20].city}, ${cities[random20].region}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             price: price,
-            image: img, 
+            image: await getImage(), 
+            author: '6673e20b236d698825f237de',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit'
         });
         await camp.save();
