@@ -60,9 +60,8 @@ router.get('/:id/edit', isLoggedIn, catchAsync(async(req,res) => {
 
 router.put('/:id', isLoggedIn, validateCampground, catchAsync(async(req,res) => {
     const {id} = req.params;
-    const campground = await Campground.findByIdA(id);
+    const campground = await Campground.findById(id);
     console.log(campground.author, req.user._id);
-    console.log("hello");
     if (!campground.author.equals(req.user._id)){
         req.flash('error', 'You are not the author of this camground!');
         return res.redirect(`/campgrounds/${id}`);
