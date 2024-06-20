@@ -4,7 +4,7 @@ const User = require('../models/user');
 const passport = require('passport');
 const catchAsync = require('../utils/catchAsync');
 const flash = require('connect-flash');
-const {storeReturnTo} = require('../middleware/storeReturnTo');
+const {storeReturnTo} = require('../middleware');
 
 router.use(flash());
 
