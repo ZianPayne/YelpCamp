@@ -4,6 +4,7 @@ const User = require('../models/user');
 const passport = require('passport');
 const catchAsync = require('../utils/catchAsync');
 const flash = require('connect-flash');
+const {storeReturnTo} = require('../middleware/storeReturnTo');
 
 router.use(flash());
 
@@ -34,9 +35,12 @@ router.get('/login', (req,res) => {
 });
 
 router.post('/login',
-    passport.authenticate('local', {failureFlash:true, failureRedirect: '/login'}),(req,res) => {
-    req.flash('success', 'Welcome back!');
-    res.redirect('/campgrounds');
+    storeReturnTo,
+    passport.authenticate('local', {failureFlash:true, failureRedirect: '/login'}),
+    (req,res) => {
+        req.flash('success', 'Welcome back!');
+        const redirectUrl = res.locals.returnTo || '/campgrounds';
+        res.redirect(redirectUrl);
 });
 
 router.get('/logout', (req,res) => {
