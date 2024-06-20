@@ -1,6 +1,6 @@
-const Campground = require('../models/campground');
-const ExpressError = require('../utils/ExpressError');
-const { campgroundSchema} = require('../schemas.js');
+const Campground = require('./models/campground');
+const ExpressError = require('./utils/ExpressError');
+const { reviewSchema, campgroundSchema} = require('./schemas.js');
 
 module.exports.storeReturnTo = (req,res,next) => {
     if (req.session.returnTo){
@@ -17,7 +17,7 @@ module.exports.isAuthor = async(req,res,next) => {
         return res.redirect(`/campgrounds/${id}`);
     }
     next();
-}
+};
 
 module.exports.isLoggedIn = (req,res,next) => {
     if(!req.isAuthenticated()){
@@ -26,7 +26,7 @@ module.exports.isLoggedIn = (req,res,next) => {
         return res.redirect('/login');
     }
     next();
-}
+};
 
 
 module.exports.validateCampground = (req,res,next) => {
@@ -37,4 +37,16 @@ module.exports.validateCampground = (req,res,next) => {
     } else {
         next();
     }
-}
+};
+
+module.exports.validateReview = (req,res,next) => {
+    const {error} = reviewSchema.validate(req.body);
+    if (error){
+        console.log(error);
+        const messg = error.details.map(el => el.message).join(',');
+        throw new ExpressError(messg, 400)
+    }
+    else {
+        next();
+    }
+};
