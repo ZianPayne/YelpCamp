@@ -27,7 +27,8 @@ const generateRandomReviews = async (camp, numReviews) => {
     for(let i = 0; i < numReviews; i++){
         const review = new Review({
             rating: Math.floor(Math.random() * 5) + 1, // Random rating between 1 and 5
-            body: loremIpsum() 
+            body: loremIpsum(),
+            author: '6673e20b236d698825f237de' // Admin user id
         });
         await camp.reviews.push(review);
         await review.save();
