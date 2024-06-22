@@ -5,6 +5,7 @@ const passport = require('passport');
 const catchAsync = require('../utils/catchAsync');
 const flash = require('connect-flash');
 const {storeReturnTo} = require('../middleware');
+const users = require('../controllers/users');
 
 router.use(flash());
 
