@@ -17,7 +17,12 @@ const campgroundRoutes = require('./routes/campgrounds.js');
 const reviewRoutes = require('./routes/reviews.js');
 const userRoutes = require('./routes/users.js');
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp');
+mongoose.connect('mongodb://localhost:27017/yelp-camp', {
+    useNewUrlParser: true,
+    useUnifiedTopology : true,
+    useCreateIndex : true,
+    useFindAndModify: false
+});
 
 const db = mongoose.connection; 
 db.on("error", console.error.bind(console, "Connection Error:"));
