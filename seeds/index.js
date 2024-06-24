@@ -52,6 +52,32 @@ const getImage = async () => {
     return data.urls.regular;
 }
 
+const getRandomImages = () => {
+    const baseUrls = [
+        "https://res.cloudinary.com/dmblkxr03/image/upload/f_auto,q_auto/v1/YelpCamp/uvduhs3n0w6m2kvgfkem",
+        "https://res.cloudinary.com/dmblkxr03/image/upload/f_auto,q_auto/v1/YelpCamp/iqg9tbbrpbtcfl3skuge",
+        "https://res.cloudinary.com/dmblkxr03/image/upload/f_auto,q_auto/v1/YelpCamp/zb0rkgebtaozydicrxay",
+        "https://res.cloudinary.com/dmblkxr03/image/upload/f_auto,q_auto/v1/YelpCamp/ltoajpkgi7xrm3i7fc0d",
+        "https://res.cloudinary.com/dmblkxr03/image/upload/f_auto,q_auto/v1/YelpCamp/en397nuynahibhvwhond"
+    ];
+
+    const selectedImages = [];
+    const numberOfImages = Math.floor(Math.random() * 3) + 1; // 1 to 3 images
+
+    for (let i = 0; i < numberOfImages; i++) {
+        const randomIndex = Math.floor(Math.random() * baseUrls.length);
+        const url = baseUrls[randomIndex];
+        const filename = url.split('/').pop(); // Extracts filename from URL
+
+        selectedImages.push({
+            url,
+            filename: `YelpCamp/${filename}`
+        });
+    }
+
+    return selectedImages;
+};
+
 
 const seedDB = async () => {
     await Campground.deleteMany({});
@@ -65,14 +91,7 @@ const seedDB = async () => {
             price: price,
             author: '6673e20b236d698825f237de',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
-            images:     [{
-                url: 'https://res.cloudinary.com/dmblkxr03/image/upload/v1719199341/YelpCamp/v4d3zreymcku3izn3es9.jpg',
-                filename: 'YelpCamp/v4d3zreymcku3izn3es9'
-              },
-              {
-                url: 'https://res.cloudinary.com/dmblkxr03/image/upload/v1719199341/YelpCamp/hmjvrrwbjbnbwetbvwav.jpg',
-                filename: 'YelpCamp/hmjvrrwbjbnbwetbvwav'
-              }]
+            images:   getRandomImages(), 
         });
         await camp.save();
         await generateRandomReviews(camp ,Math.floor(Math.random() * 5) + 1);
