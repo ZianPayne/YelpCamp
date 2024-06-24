@@ -1,3 +1,8 @@
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
+
 const mongoose = require('mongoose');
 const Campground = require('./../models/campground');
 const Review = require('./../models/review');
@@ -19,7 +24,7 @@ db.once("open", () => {
 
 const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
-const accessKey = 'yeX9LH1RGuWcbrjzGZu37plYnuoRJsCJ6YQ5H8jRMt0'; 
+const accessKey = 'process.env.UNSPLASH_ACCESS_KEY'; 
 const imgUrl = 'https://api.unsplash.com/photos/random'; // replace with your actual Unsplash API endpoint
 
 const generateRandomReviews = async (camp, numReviews) => {
