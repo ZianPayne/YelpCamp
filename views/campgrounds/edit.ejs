@@ -13,10 +13,14 @@
                 <label class="form-label" for="location">Location</label>
                 <input class="form-control" type="text" id="location" name="campground[location]"value="<%=campground.location%>" required>
             </div>
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label class="form-label" for="image">Add images</label>
                 <input type="file" name="image" id="image" multiple>
-            </div>
+            </div> -->
+            <div class="mb-3">
+                <label for="image" class="form-label">Choose Images</label>
+                <input class="form-control" type="file" id="image" multiple>
+            </div>            
             <div class="mb-3">
                 <label class="form-label" for="price">Campground Price</label>
                 <div class="input-group">
