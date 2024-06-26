@@ -62,3 +62,17 @@ module.exports.validateReview = (req,res,next) => {
         next();
     }
 };
+
+// Middleware to log request and files
+module.exports.logRequestAndFiles = (req, res, next) => {
+    console.log(`Received ${req.method} request for ${req.url}`);
+    if (req.files) {
+        console.log(`Files included in the request:`);
+        req.files.forEach(file => {
+            console.log(`- ${file.originalname}`);
+        });
+    } else {
+        console.log('No files included in the request.');
+    }
+    next();
+};
