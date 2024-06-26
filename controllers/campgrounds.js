@@ -49,12 +49,24 @@ module.exports.renderEditForm = async(req,res) => {
 
 
 module.exports.updateCampground = async(req,res) => {
+    //console.log(req.body);
     const {id} = req.params;
+    console.log(req.body);
     console.log(req.files);
     const campground = await Campground.findByIdAndUpdate(id, {...req.body.campground});
     const imgs = req.files.map( f => ({url: f.path, filename: f.filename}));
+
+
     imgs.forEach(img => {campground.images.push(img);});
     await campground.save();
+
+
+    if(req.body.deleteImages){
+        await campground.updateOne({$pull: {images: {filename: {$in: req.body.deleteImages}}}});
+        console.log(campground)
+    }
+    await campground.save();
+
     req.flash('success', 'Successfully updated campground!')
     res.redirect(`/campgrounds/${campground._id}`);
     }
