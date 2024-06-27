@@ -13,7 +13,7 @@ module.exports.renderNewForm = async (req,res) => {
 };
 
 module.exports.createCampground = async (req,res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const campground = new Campground(req.body.campground);
     campground.images = req.files.map(f => ({url: f.path, filename: f.filename}));
     campground.author = req.user._id;
@@ -52,8 +52,8 @@ module.exports.renderEditForm = async(req,res) => {
 module.exports.updateCampground = async(req,res) => {
     //console.log(req.body);
     const {id} = req.params;
-    console.log(req.body);
-    console.log(req.files);
+    // console.log(req.body);
+    // console.log(req.files);
     const campground = await Campground.findByIdAndUpdate(id, {...req.body.campground});
     const imgs = req.files.map( f => ({url: f.path, filename: f.filename}));
 
@@ -69,6 +69,7 @@ module.exports.updateCampground = async(req,res) => {
     await campground.save();
 
     req.flash('success', 'Successfully updated campground!')
+    console.log(campground);
     res.redirect(`/campgrounds/${campground._id}`);
     }
 

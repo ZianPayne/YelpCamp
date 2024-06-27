@@ -8,7 +8,7 @@
     <div class="card mb-3">
         <div class="row">
             <div class="col-md-4">
-                <img src="<%=campground.images[0].url %>" alt="" class="img-fluid">
+                <img src="<%= campground.images && campground.images.length > 0 ? campground.images[0].url : 'https://t3.ftcdn.net/jpg/04/60/01/36/360_F_460013622_6xF8uN6ubMvLx0tAJECBHfKPoNOR5cRa.jpg' %>" alt="" class="img-fluid">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
