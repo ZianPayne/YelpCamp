@@ -35,7 +35,6 @@ module.exports.showCampground = async(req, res, next) => {
         }
         res.render('campgrounds/show', {campground});
     }
-
     
 module.exports.renderEditForm = async(req,res) => {
     const campground = await Campground.findById(req.params.id);
@@ -45,8 +44,6 @@ module.exports.renderEditForm = async(req,res) => {
     }
     res.render(`campgrounds/edit`, {campground});
     }
-
-
 
 module.exports.updateCampground = async(req,res) => {
     const {id} = req.params;

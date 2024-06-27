@@ -77,3 +77,7 @@ module.exports.logRequestAndFiles = (req, res, next) => {
     }
     next();
 };
+
+module.exports.logRequest = (req, res, next) => {
+    
+}

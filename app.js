@@ -12,6 +12,7 @@ const session = require('express-session');
 const flash = require('connect-flash')
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const morgan = require('morgan')
 
 
 const User = require('./models/user');
@@ -34,17 +35,6 @@ db.once("open", () => {
     console.log("Database connected!!");
 });
 
-const app = express();
-
-app.engine('ejs', ejsMate);
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname,'views'));
-
-app.use(express.urlencoded({extended:true}));
-app.use(methodOverride('_method'));
-app.use(express.static('public'));
-
-
 const sessionConfig = {
     secret: 'thisshouldbechanged',
     resave: false,
@@ -55,6 +45,18 @@ const sessionConfig = {
         httpOnly: true,
     }
 }
+
+const app = express();
+
+app.engine('ejs', ejsMate);
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname,'views'));
+
+app.use(express.urlencoded({extended:true}));
+app.use(methodOverride('_method'));
+app.use(express.static('public'));
+
+app.use(morgan('dev'));
 
 app.use(session(sessionConfig));
 app.use(flash());   
