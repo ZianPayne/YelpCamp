@@ -6,6 +6,9 @@ const mongoose = require('mongoose');
 const Campground = require('./../models/campground');
 const Review = require('./../models/review');
 const {loremIpsum }= require('lorem-ipsum'); // for generating random text
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding'); // For geoboxing
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({accessToken: mapBoxToken});
 
 const {places, descriptors} = require('./seedHelpers')
 const cities = require('./cities');
@@ -77,27 +80,38 @@ const getRandomImages = () => {
     return selectedImages;
 };
 
+const simulateGeocode = async (location) => {
+    const geodata = await geocoder.forwardGeocode({
+        query : location,
+        limit : 1
+    }).send();
+    
+    return geodata.body.features[0].geometry;
+
+};
 
 const seedDB = async () => {
     await Campground.deleteMany({});
-    console.log("Deleted all campgrounds")
-    for(let i = 0; i<30;i++){
+    console.log("Deleted all campgrounds");
+
+    for (let i = 0; i < 30; i++) {
         const random20 = Math.floor(Math.random() * 20);
         const price = Math.floor(Math.random() * 20 + 10);
+        const location = `${cities[random20].city}, ${cities[random20].region}`;
         const camp = new Campground({
-            location: `${cities[random20].city}, ${cities[random20].region}`,
+            location: location,
             title: `${sample(descriptors)} ${sample(places)}`,
             price: price,
             author: '6673e20b236d698825f237de',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
-            images:   getRandomImages(), 
+            images: getRandomImages(),
+            geometry: await simulateGeocode(location) 
         });
         await camp.save();
-        await generateRandomReviews(camp ,Math.floor(Math.random() * 5) + 1);
+        await generateRandomReviews(camp, Math.floor(Math.random() * 5) + 1);
         console.log(camp);
     }
-}
-
+};
 seedDB().then(() => {
     mongoose.connection.close();
 })
