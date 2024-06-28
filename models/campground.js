@@ -15,10 +15,17 @@ const CampgroundSchema = new Schema({
     title: String,
     price: Number,
     description: String,
-    images: [
-        ImageSchema
-    ],
+    images: [ImageSchema],
     location: String,
+    geometry: {
+        type: {
+            type: String,
+            enum: ['Point'],
+        },
+        coordinates : {
+            type: [Number],
+        }
+    },
     author : {
         type: Schema.Types.ObjectId,
         ref: 'User'
