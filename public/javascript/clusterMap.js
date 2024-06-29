@@ -116,9 +116,6 @@ map.on('load', () => {
 
         new mapboxgl.Popup()
             .setLngLat(coordinates)
-            .setHTML(
-                <h3>camground</h3>
-            )
             .addTo(map);
     });
 
