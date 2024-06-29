@@ -93,7 +93,7 @@ const seedDB = async () => {
     await Campground.deleteMany({});
     console.log("Deleted all campgrounds");
 
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 80; i++) {
         const random20 = Math.floor(Math.random() * 20);
         const price = Math.floor(Math.random() * 20 + 10);
         const location = `${cities[random20].city}, ${cities[random20].region}`;
