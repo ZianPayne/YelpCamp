@@ -1,3 +1,23 @@
+body {
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+    url('https://res.cloudinary.com/dmblkxr03/image/upload/f_auto,q_auto/v1/YelpCamp/oqrbrgteozc7c0y40asx');
+    background-position: center bottom; /* Aligns the image to the bottom */
+    background-size: cover; /* Ensures the image covers the whole area */
+    text-shadow: 0 0 1rem rgba(0,0,0,0.8);
+}
 .cover-container {
-    max-width: 42em;
+    max-width: 60vw;
+}
+
+.nav-link {
+    padding: 0.25rem 0.5rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    border-bottom: 0.25rem solid transparent;
+}
+
+.nav-link:hover {
+    color: rgba(255,255,255,0.8);
+    border-bottom-color: rgba(255,255,255,1);
 }
