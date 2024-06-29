@@ -44,7 +44,6 @@ const generateRandomReviews = async (camp, numReviews) => {
     return reviews;
 }
 
-
 const getImage = async () => {
     const response = await fetch(imgUrl, {
         headers: { Authorization: `Client-ID ${accessKey}` }
