@@ -94,9 +94,9 @@ const seedDB = async () => {
     console.log("Deleted all campgrounds");
 
     for (let i = 0; i < 80; i++) {
-        const random20 = Math.floor(Math.random() * 20);
+        const randomCity = Math.floor(Math.random() * cities.length);
         const price = Math.floor(Math.random() * 20 + 10);
-        const location = `${cities[random20].city}, ${cities[random20].region}`;
+        const location = `${cities[randomCity].city}, ${cities[randomCity].region}`;
         const camp = new Campground({
             location: location,
             title: `${sample(descriptors)} ${sample(places)}`,
