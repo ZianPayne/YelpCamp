@@ -5,6 +5,7 @@ body {
     background-position: center bottom; /* Aligns the image to the bottom */
     background-size: cover; /* Ensures the image covers the whole area */
     text-shadow: 0 0 1rem rgba(0,0,0,0.8);
+    box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.2);
 }
 .cover-container {
     max-width: 60vw;
@@ -13,11 +14,22 @@ body {
 .nav-link {
     padding: 0.25rem 0.5rem;
     font-weight: 600;
-    color: rgba(255,255,255,0.8);
+    color: rgba(255,255,255,0.5);
     border-bottom: 0.25rem solid transparent;
 }
 
 .nav-link:hover {
     color: rgba(255,255,255,0.8);
+    border-bottom-color: rgba(255,255,255,0.8);
+}
+
+.nav-link.active {
+    color: rgba(255,255,255,1);
     border-bottom-color: rgba(255,255,255,1);
+}
+
+.btn-secondary, .btn-seconday:hover {
+    color: #333;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
 }
