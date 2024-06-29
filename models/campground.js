@@ -11,6 +11,11 @@ ImageSchema.virtual('thumbnail').get(function() {
     return this.url.replace('/upload', '/upload/w_200');
 })
 
+
+CampgroundSchema.virtual('properties.popUpMarkup').get(function() {
+    return "I am pop up text";
+})
+
 const CampgroundSchema = new Schema({
     title: String,
     price: Number,

@@ -12,6 +12,7 @@
                 <img src="<%= campground.images && campground.images.length > 0 ? campground.images[0].url : 'https://t3.ftcdn.net/jpg/04/60/01/36/360_F_460013622_6xF8uN6ubMvLx0tAJECBHfKPoNOR5cRa.jpg' %>" alt="" class="img-fluid">
             </div>
             <div class="col-md-8">
+                <h1><%= campground.popUpMarkup %></h1>
                 <div class="card-body">
                     <h5 class="card-title"><%=campground.title %></h5>
                     <p class="card-text"><%= campground.description %></p>
@@ -26,7 +27,7 @@
 
 <script>
     const mapToken = '<%-process.env.MAPBOX_TOKEN%>'
-    const campgrounds = { features:  <%-JSON.stringify(campgrounds)%> }
+    const campgrounds = { <%-JSON.stringify(campgrounds.geometry)%> }
 </script>
 
 <script src="/javascript/clusterMap.js"></script>
