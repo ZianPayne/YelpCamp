@@ -13,6 +13,7 @@ const flash = require('connect-flash')
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const morgan = require('morgan')
+const mongoSanitize = require('express-mongo-sanitize');
 
 
 const User = require('./models/user');
@@ -55,6 +56,10 @@ app.set('views', path.join(__dirname,'views'));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 app.use(express.static('public'));
+app.use(mongoSanitize({
+    replaceWith: "_"
+}));
+
 
 app.use(morgan('dev'));
 
@@ -69,6 +74,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res, next) => {                    // Global stuff
+    console.log(req.query)
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     res.locals.currentUser = req.user;
