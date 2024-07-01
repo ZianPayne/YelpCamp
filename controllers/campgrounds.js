@@ -47,7 +47,6 @@ module.exports.showCampground = async(req, res, next) => {
             return res.redirect('/campgrounds');
         }
 
-        // console.log(campground)
         res.render('campgrounds/show', {campground});
     }
     
