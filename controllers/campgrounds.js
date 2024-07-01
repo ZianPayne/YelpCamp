@@ -74,6 +74,16 @@ module.exports.updateCampground = async(req,res) => {
         await campground.updateOne({$pull: {images: {filename: {$in: req.body.deleteImages}}}});
         await campground.save();
     }
+
+    if(req.body.campground.location !== campground.location){
+        const geodata = await geocoder.forwardGeocode({
+            query : req.body.campground.location,
+            limit : 1
+        }).send();
+        campground.geometry = geodata.body.features[0].geometry;
+        campground.location = req.body.campground.location;
+    }
+
     req.flash('success', 'Successfully updated campground!')
     console.log(campground);
     res.redirect(`/campgrounds/${campground._id}`);
