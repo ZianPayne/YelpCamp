@@ -1,7 +1,5 @@
 mapboxgl.accessToken = mapToken;
 
-console.log(campground);
-
 const map = new mapboxgl.Map({
     container: "show-page-map",
     style: 'mapbox://styles/mapbox/streets-v11',

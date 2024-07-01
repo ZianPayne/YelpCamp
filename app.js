@@ -14,10 +14,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const morgan = require('morgan')
 const mongoSanitize = require('express-mongo-sanitize');
-
+const helmet = require('helmet');
 
 const User = require('./models/user');
-
 
 const campgroundRoutes = require('./routes/campgrounds.js');
 const reviewRoutes = require('./routes/reviews.js');
@@ -67,6 +66,9 @@ app.use(morgan('dev'));
 
 app.use(session(sessionConfig));
 app.use(flash());   
+app.use(helmet({
+    contentSecurityPolicy: false
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
