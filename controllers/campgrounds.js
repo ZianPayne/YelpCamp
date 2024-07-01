@@ -22,7 +22,7 @@ module.exports.createCampground = async (req,res) => {
         limit : 1
     }).send();
     
-    console.log(geodata.body.features[0].geometry)
+    //console.log(geodata.body.features[0].geometry)
 
     const campground = new Campground(req.body.campground);
     campground.geometry = geodata.body.features[0].geometry;
@@ -46,6 +46,8 @@ module.exports.showCampground = async(req, res, next) => {
             req.flash('error', 'Cannot find that campground!');
             return res.redirect('/campgrounds');
         }
+
+        console.log(campground)
         res.render('campgrounds/show', {campground});
     }
     
@@ -72,18 +74,21 @@ module.exports.updateCampground = async(req,res) => {
             await cloudinary.uploader.destroy(filename);
         });
         await campground.updateOne({$pull: {images: {filename: {$in: req.body.deleteImages}}}});
-        await campground.save();
     }
 
+    console.log(req.body.campground.location, campground.location);
     if(req.body.campground.location !== campground.location){
+        console.log('Attempting to Channge')
         const geodata = await geocoder.forwardGeocode({
             query : req.body.campground.location,
             limit : 1
         }).send();
         campground.geometry = geodata.body.features[0].geometry;
+        console.log(geodata.body.features[0].geometry);
         campground.location = req.body.campground.location;
     }
 
+    await campground.save();
     req.flash('success', 'Successfully updated campground!')
     console.log(campground);
     res.redirect(`/campgrounds/${campground._id}`);
