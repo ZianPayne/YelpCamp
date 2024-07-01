@@ -47,7 +47,7 @@ module.exports.showCampground = async(req, res, next) => {
             return res.redirect('/campgrounds');
         }
 
-        console.log(campground)
+        // console.log(campground)
         res.render('campgrounds/show', {campground});
     }
     
@@ -78,7 +78,6 @@ module.exports.updateCampground = async(req,res) => {
 
     console.log(req.body.campground.location, campground.location);
     if(req.body.campground.location !== campground.location){
-        console.log('Attempting to Channge')
         const geodata = await geocoder.forwardGeocode({
             query : req.body.campground.location,
             limit : 1
@@ -90,7 +89,7 @@ module.exports.updateCampground = async(req,res) => {
 
     await campground.save();
     req.flash('success', 'Successfully updated campground!')
-    console.log(campground);
+    // console.log(campground);
     res.redirect(`/campgrounds/${campground._id}`);
     
 }
