@@ -3,7 +3,10 @@
     <div class="col-6 offset-3">
         <div class="alert alert-danger" role="alert">
             <h4 class="alert-heading"><%=err.statusCode + " " +err%></h4>
-            <p> Here is a major error </p>
+            <p>It seems we have run into an error</p>
+            <% if(process.env.NODE_ENV !== "production") {%>
+            <p> <%= err.stack %> </p>
+            <% } %>
             <hr>
             <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
         </div>
