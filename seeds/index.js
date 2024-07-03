@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== "production") {
 const mongoose = require('mongoose');
 const Campground = require('./../models/campground');
 const Review = require('./../models/review');
+const User = require('./../models/user');  
 const {loremIpsum }= require('lorem-ipsum'); // for generating random text
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding'); // For geoboxing
 const mapBoxToken = process.env.MAPBOX_TOKEN;
@@ -26,13 +27,13 @@ const sample = (array) => array[Math.floor(Math.random() * array.length)];
 const accessKey = 'process.env.UNSPLASH_ACCESS_KEY'; 
 const imgUrl = 'https://api.unsplash.com/photos/random'; // replace with your actual Unsplash API endpoint
 
-const generateRandomReviews = async (camp, numReviews) => {
+const generateRandomReviews = async (camp, user, numReviews) => {
     const reviews = [];
     for(let i = 0; i < numReviews; i++){
         const review = new Review({
             rating: Math.floor(Math.random() * 5) + 1, // Random rating between 1 and 5
             body: loremIpsum(),
-            author: '6673e20b236d698825f237de' // Admin user id
+            author: user._id // Admin user id
         });
         await camp.reviews.push(review);
         await review.save();
@@ -86,10 +87,33 @@ const simulateGeocode = async (location) => {
 
 };
 
+const createAdminUser = async () => {
+    try {
+      // Check if the admin user already exists
+      const existingUser = await User.findOne({ email: 'admin@gmail.com' });
+      if (existingUser) {
+        console.log('Admin user already exists');
+        return existingUser;
+      }
+  
+      // Create a new admin user
+      const adminUser = new User({ username: 'admin', email: 'admin@gmail.com' });
+      const registeredUser = await User.register(adminUser, 'admin'); // 'admin' is the password
+      console.log('Admin user created:', registeredUser);
+      return registeredUser;
+    } catch (error) {
+      console.error('Error creating admin user:', error);
+    }
+  }
+
 const seedDB = async () => {
     try {
         await Campground.deleteMany({});
+        await Review.deleteMany({});
+        await User.deleteMany({});  
         console.log("Deleted all campgrounds");
+        
+        const adminUser = await createAdminUser();
 
         for (let i = 0; i < 80; i++) {
             const randomCity = Math.floor(Math.random() * cities.length);
@@ -99,13 +123,13 @@ const seedDB = async () => {
                 location: location,
                 title: `${sample(descriptors)} ${sample(places)}`,
                 price: price,
-                author: '6673e20b236d698825f237de',
+                author: adminUser._id,
                 description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
                 images: getRandomImages(),
                 geometry: await simulateGeocode(location) 
             });
             await camp.save();
-            await generateRandomReviews(camp, Math.floor(Math.random() * 5) + 1);
+            await generateRandomReviews(camp, adminUser._id, Math.floor(Math.random() * 5) + 1);
             console.log(camp);
         }
 
@@ -115,6 +139,7 @@ const seedDB = async () => {
         mongoose.connection.close();
     }
 };
+
 seedDB().then(() => {
     mongoose.connection.close();
 })
