@@ -9,13 +9,15 @@ const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
-const session = require('express-session');
 const flash = require('connect-flash')
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const morgan = require('morgan')
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
+
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 const User = require('./models/user');
 
