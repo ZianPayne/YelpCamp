@@ -2,31 +2,33 @@ if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
 
-
-const express = require('express');
+// Core Node.js Modules
 const path = require('path');
+
+// Third-Party Middleware/Modules
+const express = require('express');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
-const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
-const flash = require('connect-flash')
+const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const morgan = require('morgan')
+const morgan = require('morgan');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
-
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
+// Local Imports
+const ExpressError = require('./utils/ExpressError');
 const User = require('./models/user');
-
 const campgroundRoutes = require('./routes/campgrounds.js');
 const reviewRoutes = require('./routes/reviews.js');
 const userRoutes = require('./routes/users.js');
 
-const dbUrl = process.env.DB_URL;
-//'mongodb://localhost:27017/yelp-camp'
+// Database URL
+// const dbUrl = process.env.DB_URL;
+const dbUrl = 'mongodb://localhost:27017/yelp-camp';
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
@@ -41,7 +43,17 @@ db.once("open", () => {
     console.log("Database connected!!");
 });
 
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'thisshouldbeabettersecret!'
+    }
+});
+
+
 const sessionConfig = {
+    store,
     name : 'yelp-session',
     secret: 'thisshouldbechanged',
     resave: false,
