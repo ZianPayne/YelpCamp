@@ -13,15 +13,12 @@ const geocoder = mbxGeocoding({accessToken: mapBoxToken});
 const {places, descriptors} = require('./seedHelpers')
 const cities = require('./cities');
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
 
-const db = mongoose.connection; 
-db.on("error", console.error.bind(console, "Connection Error:"));
-db.once("open", () => {
+mongoose.connect(dbUrl).then(() => {
     console.log("Database connected!!");
+}).catch(error => {
+    console.error("Connection Error:", error);
 });
 
 const sample = (array) => array[Math.floor(Math.random() * array.length)];
@@ -90,25 +87,32 @@ const simulateGeocode = async (location) => {
 };
 
 const seedDB = async () => {
-    await Campground.deleteMany({});
-    console.log("Deleted all campgrounds");
+    try {
+        await Campground.deleteMany({});
+        console.log("Deleted all campgrounds");
 
-    for (let i = 0; i < 80; i++) {
-        const randomCity = Math.floor(Math.random() * cities.length);
-        const price = Math.floor(Math.random() * 20 + 10);
-        const location = `${cities[randomCity].city}, ${cities[randomCity].region}`;
-        const camp = new Campground({
-            location: location,
-            title: `${sample(descriptors)} ${sample(places)}`,
-            price: price,
-            author: '6673e20b236d698825f237de',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
-            images: getRandomImages(),
-            geometry: await simulateGeocode(location) 
-        });
-        await camp.save();
-        await generateRandomReviews(camp, Math.floor(Math.random() * 5) + 1);
-        console.log(camp);
+        for (let i = 0; i < 80; i++) {
+            const randomCity = Math.floor(Math.random() * cities.length);
+            const price = Math.floor(Math.random() * 20 + 10);
+            const location = `${cities[randomCity].city}, ${cities[randomCity].region}`;
+            const camp = new Campground({
+                location: location,
+                title: `${sample(descriptors)} ${sample(places)}`,
+                price: price,
+                author: '6673e20b236d698825f237de',
+                description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+                images: getRandomImages(),
+                geometry: await simulateGeocode(location) 
+            });
+            await camp.save();
+            await generateRandomReviews(camp, Math.floor(Math.random() * 5) + 1);
+            console.log(camp);
+        }
+
+        mongoose.connection.close();
+    } catch (err) {
+        console.error("An error occurred:", err);
+        mongoose.connection.close();
     }
 };
 seedDB().then(() => {
