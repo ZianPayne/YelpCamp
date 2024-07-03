@@ -16,7 +16,7 @@ const morgan = require('morgan');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+const MongoStore = require('connect-mongo');
 
 // Local Imports
 const ExpressError = require('./utils/ExpressError');
