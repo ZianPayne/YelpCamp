@@ -35,8 +35,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "NODE_ENV=development nodemon app.js",
-    "start:prod": "NODE_ENV=production node app.js"
+    "start:dev": "cross-env NODE_ENV=development nodemon app.js",
+    "start:prod": "cross-env NODE_ENV=production node app.js"
   },
   "keywords": [],
   "author": "",
