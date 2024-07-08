@@ -8,7 +8,8 @@ const Review = require('./../models/review');
 const User = require('./../models/user');  
 const {loremIpsum }= require('lorem-ipsum'); // for generating random text
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding'); // For geoboxing
-const mapBoxToken = process.env.MAPBOX_TOKEN;
+const mapBoxToken = process.env.MAPBOX_TOKEN_SEEDING;
+console.log(mapBoxToken);
 const geocoder = mbxGeocoding({accessToken: mapBoxToken});
 
 const {places, descriptors} = require('./seedHelpers')
@@ -24,7 +25,7 @@ mongoose.connect(dbUrl).then(() => {
 
 const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
-const accessKey = 'process.env.UNSPLASH_ACCESS_KEY'; 
+const accessKey = process.env.UNSPLASH_ACCESS_KEY; 
 const imgUrl = 'https://api.unsplash.com/photos/random'; // replace with your actual Unsplash API endpoint
 
 const generateRandomReviews = async (camp, user, numReviews) => {
@@ -55,9 +56,10 @@ const getRandomImages = () => {
     const baseUrls = [
         "https://res.cloudinary.com/dmblkxr03/image/upload/f_auto,q_auto/v1/YelpCamp/uvduhs3n0w6m2kvgfkem",
         "https://res.cloudinary.com/dmblkxr03/image/upload/f_auto,q_auto/v1/YelpCamp/iqg9tbbrpbtcfl3skuge",
-        "https://res.cloudinary.com/dmblkxr03/image/upload/f_auto,q_auto/v1/YelpCamp/zb0rkgebtaozydicrxay",
         "https://res.cloudinary.com/dmblkxr03/image/upload/f_auto,q_auto/v1/YelpCamp/ltoajpkgi7xrm3i7fc0d",
-        "https://res.cloudinary.com/dmblkxr03/image/upload/f_auto,q_auto/v1/YelpCamp/en397nuynahibhvwhond"
+        "https://res.cloudinary.com/dmblkxr03/image/upload/f_auto,q_auto/v1/YelpCamp/is8dcklmy6xgfhshpbxl",
+        "https://res.cloudinary.com/dmblkxr03/image/upload/f_auto,q_auto/v1/YelpCamp/ddgj1rbagwrkxauzzchk",
+        "https://res.cloudinary.com/dmblkxr03/image/upload/f_auto,q_auto/v1/YelpCamp/tl5iwcpejndgqrtzsjfn"        
     ];
 
     const selectedImages = [];

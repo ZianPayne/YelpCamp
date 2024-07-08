@@ -18,12 +18,13 @@ module.exports.renderNewForm = async (req,res) => {
 };
 
 module.exports.createCampground = async (req,res) => {
+    console.log("here lol");
     const geodata = await geocoder.forwardGeocode({
         query : req.body.campground.location,
         limit : 1
     }).send();
     
-    //console.log(geodata.body.features[0].geometry)
+    console.log(geodata.body.features[0].geometry)
 
     const campground = new Campground(req.body.campground);
     campground.geometry = geodata.body.features[0].geometry;
